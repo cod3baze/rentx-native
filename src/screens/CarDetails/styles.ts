@@ -74,6 +74,15 @@ export const Price = styled.Text`
   color: ${({ theme }) => theme.colors.main};
 `;
 
+export const Accessories = styled.View`
+  width: 100%;
+
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+`;
+
 export const About = styled.Text`
   font-size: ${RFValue(16)}px;
   font-family: ${({ theme }) => theme.fonts.primary_400};
@@ -82,4 +91,12 @@ export const About = styled.Text`
   text-align: justify;
 
   margin-top: 23px;
+  line-height: ${RFValue(26)}px;
+`;
+
+export const Footer = styled.View`
+  width: 100%;
+  background: ${({ theme }) => theme.colors.background_secondary};
+
+  padding: 24px 24px ${getStatusBarHeight() + 24}px;
 `;
