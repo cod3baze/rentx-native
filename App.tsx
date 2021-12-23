@@ -1,3 +1,5 @@
+import "react-native-gesture-handler";
+
 import React from "react";
 import { StatusBar } from "expo-status-bar";
 
@@ -9,10 +11,9 @@ import {
 } from "@expo-google-fonts/archivo";
 import { useFonts } from "expo-font";
 import AppLoading from "expo-app-loading";
-import { Scheduling } from "./src/screens/Scheduling";
+
 import { AppProvider } from "./src/contexts/AppProvider";
-import { SchedulingDetails } from "./src/screens/SchedulingDetails";
-import { SchedulingComplete } from "./src/screens/SchedulingComplete";
+import { Routes } from "./src/routes";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -30,7 +31,7 @@ export default function App() {
   return (
     <AppProvider>
       <StatusBar style="auto" />
-      <SchedulingComplete />
+      <Routes />
     </AppProvider>
   );
 }
