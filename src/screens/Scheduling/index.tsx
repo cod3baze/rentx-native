@@ -3,6 +3,9 @@ import { useTheme } from "styled-components";
 import { StatusBar } from "expo-status-bar";
 
 import { BackButton } from "../../components/BackButton";
+import { Calendar } from "../../components/Calendar";
+import { Button } from "../../components/Button";
+
 import ArrowSVG from "../../assets/arrow.svg";
 
 import {
@@ -16,7 +19,6 @@ import {
   Content,
   Footer,
 } from "./styles";
-import { Button } from "../../components/Button";
 
 export function Scheduling() {
   const theme = useTheme();
@@ -49,7 +51,9 @@ export function Scheduling() {
         </RentalPeriod>
       </Header>
 
-      <Content></Content>
+      <Content>
+        <Calendar />
+      </Content>
 
       <Footer>
         <Button title="Confirmar" />
