@@ -11,6 +11,7 @@ import { useFonts } from "expo-font";
 import AppLoading from "expo-app-loading";
 import { Scheduling } from "./src/screens/Scheduling";
 import { AppProvider } from "./src/contexts/AppProvider";
+import { SchedulingDetails } from "./src/screens/SchedulingDetails";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -28,7 +29,7 @@ export default function App() {
   return (
     <AppProvider>
       <StatusBar style="auto" />
-      <Scheduling />
+      <SchedulingDetails />
     </AppProvider>
   );
 }
