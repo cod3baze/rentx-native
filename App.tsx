@@ -1,6 +1,5 @@
 import React from "react";
 import { StatusBar } from "expo-status-bar";
-import { Home } from "./src/screens/Home";
 
 import { Inter_400Regular, Inter_500Medium } from "@expo-google-fonts/inter";
 import {
@@ -10,9 +9,8 @@ import {
 } from "@expo-google-fonts/archivo";
 import { useFonts } from "expo-font";
 import AppLoading from "expo-app-loading";
-import { ThemeProvider } from "styled-components";
-import { theme } from "./src/styles/theme";
-import { CarDetails } from "./src/screens/CarDetails";
+import { Scheduling } from "./src/screens/Scheduling";
+import { AppProvider } from "./src/contexts/AppProvider";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -28,9 +26,9 @@ export default function App() {
   }
 
   return (
-    <ThemeProvider theme={theme}>
+    <AppProvider>
       <StatusBar style="auto" />
-      <CarDetails />
-    </ThemeProvider>
+      <Scheduling />
+    </AppProvider>
   );
 }
