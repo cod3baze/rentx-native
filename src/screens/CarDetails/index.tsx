@@ -5,13 +5,6 @@ import { Accessory } from "../../components/Accessory";
 import { BackButton } from "../../components/BackButton";
 import { ImageSlider } from "../../components/ImageSlider";
 
-import SpeedSVG from "../../assets/speed.svg";
-import AccelerationSVG from "../../assets/acceleration.svg";
-import ForceSVG from "../../assets/force.svg";
-import GasolineSVG from "../../assets/gasoline.svg";
-import ExchangeSVG from "../../assets/exchange.svg";
-import PeopleSVG from "../../assets/people.svg";
-
 import {
   Container,
   Header,
@@ -30,6 +23,7 @@ import {
 } from "./styles";
 import { Button } from "../../components/Button";
 import { CarDTO } from "../../dtos/CarDTO";
+import { getAccessoryIcon } from "../../utils/getAccessoryIcon";
 
 interface RouteParams {
   car: CarDTO;
@@ -73,7 +67,7 @@ export function CarDetails() {
             <Accessory
               key={accessory.type}
               name={accessory.name}
-              icon={SpeedSVG}
+              icon={getAccessoryIcon(accessory.type)}
             />
           ))}
         </Accessories>
