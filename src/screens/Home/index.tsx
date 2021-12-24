@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
 
 import Logo from "../../assets/logo.svg";
 
@@ -7,6 +8,8 @@ import { StatusBar } from "expo-status-bar";
 import { Car } from "../../components/Car";
 
 export function Home() {
+  const navigation = useNavigation<any>();
+
   const carData = {
     brand: "Audi",
     name: "RS 5 Coupé",
@@ -16,6 +19,10 @@ export function Home() {
     },
     thumbnail: "https://freepngimg.com/thumb/audi/35227-5-audi-rs5-red.png",
   };
+
+  function handleNavigateToCarDetails() {
+    navigation.navigate("CarDetails");
+  }
 
   return (
     <Container>
@@ -30,7 +37,9 @@ export function Home() {
       <CarList
         data={[1, 2, 3, 4, 5, 6, 7, 8]}
         keyExtractor={(item) => String(item)}
-        renderItem={({ item }) => <Car data={carData} />}
+        renderItem={({ item }) => (
+          <Car onPress={() => handleNavigateToCarDetails()} data={carData} />
+        )}
       />
     </Container>
   );

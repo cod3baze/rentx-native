@@ -1,6 +1,7 @@
 import React from "react";
 import { useTheme } from "styled-components";
 import { StatusBar } from "expo-status-bar";
+import { useNavigation } from "@react-navigation/native";
 
 import { BackButton } from "../../components/BackButton";
 import { Calendar } from "../../components/Calendar";
@@ -22,6 +23,11 @@ import {
 
 export function Scheduling() {
   const theme = useTheme();
+  const navigation = useNavigation<any>();
+
+  function handleNavigateToSchedulingDetails() {
+    navigation.navigate("SchedulingDetails");
+  }
 
   return (
     <Container>
@@ -56,7 +62,7 @@ export function Scheduling() {
       </Content>
 
       <Footer>
-        <Button title="Confirmar" />
+        <Button title="Confirmar" onPress={handleNavigateToSchedulingDetails} />
       </Footer>
     </Container>
   );

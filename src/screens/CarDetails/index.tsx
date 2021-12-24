@@ -1,5 +1,9 @@
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
+
 import { Accessory } from "../../components/Accessory";
+import { BackButton } from "../../components/BackButton";
+import { ImageSlider } from "../../components/ImageSlider";
 
 import SpeedSVG from "../../assets/speed.svg";
 import AccelerationSVG from "../../assets/acceleration.svg";
@@ -8,8 +12,6 @@ import GasolineSVG from "../../assets/gasoline.svg";
 import ExchangeSVG from "../../assets/exchange.svg";
 import PeopleSVG from "../../assets/people.svg";
 
-import { BackButton } from "../../components/BackButton";
-import { ImageSlider } from "../../components/ImageSlider";
 import {
   Container,
   Header,
@@ -29,6 +31,12 @@ import {
 import { Button } from "../../components/Button";
 
 export function CarDetails() {
+  const navigation = useNavigation<any>();
+
+  function handleNavigateToScheduling() {
+    navigation.navigate("Scheduling");
+  }
+
   return (
     <Container>
       <Header>
@@ -73,7 +81,7 @@ export function CarDetails() {
       </Content>
 
       <Footer>
-        <Button title="Confirmar" />
+        <Button title="Confirmar" onPress={handleNavigateToScheduling} />
       </Footer>
     </Container>
   );
