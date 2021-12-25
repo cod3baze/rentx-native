@@ -129,7 +129,11 @@ export function Scheduling() {
       </Content>
 
       <Footer>
-        <Button title="Confirmar" onPress={handleNavigateToSchedulingDetails} />
+        <Button
+          enabled={!!rentalPeriod.startFormatted}
+          title="Confirmar"
+          onPress={handleNavigateToSchedulingDetails}
+        />
       </Footer>
     </Container>
   );
