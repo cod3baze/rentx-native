@@ -9,3 +9,5 @@
 - useAnimatedStyle: animar o comportamento visual dos components
 - useSharedValue: state do valor a ser animado
 - withTiming: dá transição na animação
+- interpolate: declara as etapas da animação, do value, dependendo de qual input ele vai estar...
+  - extrapolate.CLAMP: nunca passar do limit estabelecido
