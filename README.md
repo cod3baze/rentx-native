@@ -11,3 +11,11 @@
 - withTiming: dá transição na animação
 - interpolate: declara as etapas da animação, do value, dependendo de qual input ele vai estar...
   - extrapolate.CLAMP: nunca passar do limit estabelecido
+
+```ts
+// executa a função **startApp** na thread do JS
+() => {
+  "worklet";
+  runOnJS(startApp)();
+};
+```
