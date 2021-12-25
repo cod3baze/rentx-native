@@ -13,16 +13,15 @@ import Reanimated, {
   useSharedValue,
 } from "react-native-reanimated";
 
-const ButtonAnimated = Reanimated.createAnimatedComponent(RectButton);
-
 import { CarDTO } from "../../dtos/CarDTO";
-
 import Logo from "../../assets/logo.svg";
 
 import { CarList, Container, Header, HeaderContent, TotalCars } from "./styles";
 import { Car } from "../../components/Car";
-import { Load } from "../../components/Load";
+import { LoadAnimation } from "../../components/LoadAnimation";
 import { api } from "../../services/api";
+
+const ButtonAnimated = Reanimated.createAnimatedComponent(RectButton);
 
 export function Home() {
   const [cars, setCars] = useState<CarDTO[]>([]);
@@ -98,8 +97,8 @@ export function Home() {
         </HeaderContent>
       </Header>
 
-      {isLoading ? (
-        <Load />
+      {!isLoading ? (
+        <LoadAnimation />
       ) : (
         <CarList
           data={cars}

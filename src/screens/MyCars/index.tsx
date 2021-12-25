@@ -7,7 +7,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
 import { BackButton } from "../../components/BackButton";
-import { Load } from "../../components/Load";
+import { LoadAnimation } from "../../components/LoadAnimation";
 import { Car } from "../../components/Car";
 import { CarDTO } from "../../dtos/CarDTO";
 import { api } from "../../services/api";
@@ -80,7 +80,7 @@ export function MyCars() {
       </Header>
 
       {isLoading ? (
-        <Load />
+        <LoadAnimation />
       ) : (
         <Content>
           <Appointments>
