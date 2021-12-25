@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import { RectButton, PanGestureHandler } from "react-native-gesture-handler";
-import { Alert, StyleSheet } from "react-native";
+import { Alert, StyleSheet, BackHandler } from "react-native";
 import { useTheme } from "styled-components";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
@@ -84,13 +84,17 @@ export function Home() {
     getCars();
   }, []);
 
+  useEffect(() => {
+    BackHandler.addEventListener("hardwareBackPress", () => true);
+  }, []);
+
   return (
     <Container>
       <StatusBar style="light" />
       <Header>
         <HeaderContent>
           <Logo />
-          <TotalCars>Total de carros {cars.length}</TotalCars>
+          {!isLoading && <TotalCars>Total de carros {cars.length}</TotalCars>}
         </HeaderContent>
       </Header>
 
