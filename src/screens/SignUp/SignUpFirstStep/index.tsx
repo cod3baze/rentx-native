@@ -1,7 +1,9 @@
 import { useNavigation } from "@react-navigation/native";
+import * as Yup from "yup";
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useState } from "react";
 import {
+  Alert,
   Keyboard,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
@@ -21,14 +23,38 @@ import {
   Title,
 } from "./styles";
 
+const schema = Yup.object().shape({
+  email: Yup.string()
+    .required("E-mail obrigatório")
+    .email("E-mail mal formatado"),
+  name: Yup.string().required("Nome obrigatório"),
+  driverLicense: Yup.string().required("CNH obrigatório"),
+});
+
 export function SignUpFirstStep() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [driverLicense, setDriverLicense] = useState("");
+
   const navigation = useNavigation<any>();
 
   function handleBack() {
     navigation.goBack();
   }
-  function handleNextStep() {
-    navigation.navigate("SignUpSecondStep");
+  async function handleNextStep() {
+    try {
+      const data = { name, email, driverLicense };
+
+      await schema.validate(data);
+
+      navigation.navigate("SignUpSecondStep", { user: data });
+    } catch (error) {
+      if (error instanceof Yup.ValidationError) {
+        Alert.alert("Opá", error.message);
+      } else {
+        Alert.alert("Erro ao criar conta!", "Verifique as suas credenciais");
+      }
+    }
   }
 
   return (
@@ -56,8 +82,15 @@ export function SignUpFirstStep() {
           <Form>
             <FormTitle>1. Dados</FormTitle>
 
-            <Input iconName="user" placeholder="Nome" />
             <Input
+              value={name}
+              onChangeText={setName}
+              iconName="user"
+              placeholder="Nome"
+            />
+            <Input
+              value={email}
+              onChangeText={setEmail}
               iconName="mail"
               placeholder="E-mail"
               keyboardType="email-address"
@@ -65,6 +98,8 @@ export function SignUpFirstStep() {
               autoCorrect={false}
             />
             <Input
+              value={driverLicense}
+              onChangeText={setDriverLicense}
               iconName="credit-card"
               placeholder="CNH"
               keyboardType="numeric"

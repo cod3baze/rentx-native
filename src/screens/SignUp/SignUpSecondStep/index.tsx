@@ -1,7 +1,9 @@
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import * as Yup from "yup";
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useState } from "react";
 import {
+  Alert,
   Keyboard,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
@@ -22,15 +24,53 @@ import {
   Title,
 } from "./styles";
 
+interface RouteParams {
+  user: {
+    name: string;
+    email: string;
+    driverLicense: string;
+  };
+}
+
+const schema = Yup.object().shape({
+  password: Yup.string().required("Senha obrigatório"),
+  passwordConfirm: Yup.string().oneOf(
+    [null, Yup.ref("password")],
+    "As senhas precisam ser iguais"
+  ),
+});
+
 export function SignUpSecondStep() {
+  const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+
   const theme = useTheme();
   const navigation = useNavigation<any>();
+  const route = useRoute();
+
+  const { user } = route.params as RouteParams;
 
   function handleBack() {
     navigation.goBack();
   }
-  function handleNextStep() {
-    navigation.navigate("SignUpSecondStep");
+  async function handleCreateNewAccount() {
+    try {
+      const data = { password, passwordConfirm };
+
+      await schema.validate(data);
+
+      navigation.navigate("Confirmation", {
+        title: "Conta criada!",
+        message: `Agora é só fazer login\ne aproveitar`,
+        nextScreenRoute: "SignIn",
+      });
+    } catch (error) {
+      if (error instanceof Yup.ValidationError) {
+        Alert.alert("Opá", error.message);
+      } else {
+        Alert.alert("Erro ao criar conta!", "Verifique as suas credenciais");
+      }
+    }
   }
 
   return (
@@ -58,14 +98,24 @@ export function SignUpSecondStep() {
           <Form>
             <FormTitle>02. Senha</FormTitle>
 
-            <PasswordInput iconName="lock" placeholder="Senha" />
-            <PasswordInput iconName="lock" placeholder="Repetir senha" />
+            <PasswordInput
+              value={password}
+              onChangeText={setPassword}
+              iconName="lock"
+              placeholder="Senha"
+            />
+            <PasswordInput
+              value={passwordConfirm}
+              onChangeText={setPasswordConfirm}
+              iconName="lock"
+              placeholder="Repetir senha"
+            />
           </Form>
 
           <Button
             title="Cadastrar"
             color={theme.colors.success}
-            enabled={false}
+            onPress={handleCreateNewAccount}
           />
         </Container>
       </TouchableWithoutFeedback>
