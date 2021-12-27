@@ -6,6 +6,10 @@ interface ContainerProps extends RectButtonProps {
   color?: string;
 }
 
+interface ButtonTitleProps {
+  light?: boolean;
+}
+
 export const Container = styled(RectButton)<ContainerProps>`
   width: 100%;
   height: 60px;
@@ -15,8 +19,9 @@ export const Container = styled(RectButton)<ContainerProps>`
   justify-content: center;
   align-items: center;
 `;
-export const Title = styled.Text`
+export const Title = styled.Text<ButtonTitleProps>`
   font-size: ${RFValue(16)}px;
   font-family: ${({ theme }) => theme.fonts.primary_500};
-  color: ${({ theme }) => theme.colors.shape};
+  color: ${({ theme, light }) =>
+    light ? theme.colors.header : theme.colors.shape};
 `;

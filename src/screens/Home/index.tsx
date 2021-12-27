@@ -97,7 +97,7 @@ export function Home() {
         </HeaderContent>
       </Header>
 
-      {!isLoading ? (
+      {isLoading ? (
         <LoadAnimation />
       ) : (
         <CarList
