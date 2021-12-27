@@ -23,6 +23,7 @@ import {
   Subtitle,
   Title,
 } from "./styles";
+import { api } from "../../../services/api";
 
 interface RouteParams {
   user: {
@@ -41,6 +42,7 @@ const schema = Yup.object().shape({
 });
 
 export function SignUpSecondStep() {
+  const [isLoading, setIsLoading] = useState(false);
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
 
@@ -54,22 +56,44 @@ export function SignUpSecondStep() {
     navigation.goBack();
   }
   async function handleCreateNewAccount() {
+    setIsLoading(true);
+
     try {
       const data = { password, passwordConfirm };
 
       await schema.validate(data);
+
+      await api
+        .post("/users", {
+          name: user.name,
+          email: user.email,
+          driver_license: user.driverLicense,
+          password,
+        })
+        .then(() =>
+          navigation.navigate("Confirmation", {
+            title: "Conta criada!",
+            message: `Agora é só fazer login\ne aproveitar`,
+            nextScreenRoute: "SignIn",
+          })
+        )
+        .catch((err) => {
+          throw new Error(err);
+        });
 
       navigation.navigate("Confirmation", {
         title: "Conta criada!",
         message: `Agora é só fazer login\ne aproveitar`,
         nextScreenRoute: "SignIn",
       });
-    } catch (error) {
+    } catch (error: any) {
       if (error instanceof Yup.ValidationError) {
         Alert.alert("Opá", error.message);
       } else {
-        Alert.alert("Erro ao criar conta!", "Verifique as suas credenciais");
+        Alert.alert("Erro ao criar conta!", error.message);
       }
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -116,6 +140,8 @@ export function SignUpSecondStep() {
             title="Cadastrar"
             color={theme.colors.success}
             onPress={handleCreateNewAccount}
+            enabled={!isLoading}
+            isLoading={isLoading}
           />
         </Container>
       </TouchableWithoutFeedback>
