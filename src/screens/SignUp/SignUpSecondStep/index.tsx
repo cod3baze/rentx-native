@@ -6,10 +6,11 @@ import {
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
 } from "react-native";
+import { useTheme } from "styled-components";
 import { BackButton } from "../../../components/BackButton";
 import { Bullet } from "../../../components/Bullet";
 import { Button } from "../../../components/Button";
-import { Input } from "../../../components/Input";
+import { PasswordInput } from "../../../components/PasswordInput";
 
 import {
   Container,
@@ -21,7 +22,8 @@ import {
   Title,
 } from "./styles";
 
-export function SignUpFirstStep() {
+export function SignUpSecondStep() {
+  const theme = useTheme();
   const navigation = useNavigation<any>();
 
   function handleBack() {
@@ -41,8 +43,8 @@ export function SignUpFirstStep() {
             <BackButton onPress={handleBack} />
 
             <Steps>
-              <Bullet active />
               <Bullet />
+              <Bullet active />
             </Steps>
           </Header>
 
@@ -54,24 +56,17 @@ export function SignUpFirstStep() {
           <Subtitle>Faça seu cadastro de {"\n"} forma rápida e fácil.</Subtitle>
 
           <Form>
-            <FormTitle>1. Dados</FormTitle>
+            <FormTitle>02. Senha</FormTitle>
 
-            <Input iconName="user" placeholder="Nome" />
-            <Input
-              iconName="mail"
-              placeholder="E-mail"
-              keyboardType="email-address"
-              autoCapitalize="none"
-              autoCorrect={false}
-            />
-            <Input
-              iconName="credit-card"
-              placeholder="CNH"
-              keyboardType="numeric"
-            />
+            <PasswordInput iconName="lock" placeholder="Senha" />
+            <PasswordInput iconName="lock" placeholder="Repetir senha" />
           </Form>
 
-          <Button title="Próximo" onPress={handleNextStep} />
+          <Button
+            title="Cadastrar"
+            color={theme.colors.success}
+            enabled={false}
+          />
         </Container>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
