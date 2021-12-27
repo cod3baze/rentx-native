@@ -12,11 +12,12 @@ export const Container = styled.View<ContainerProps>`
   align-items: center;
 
   margin-bottom: 8px;
+  border-bottom-width: 2px;
+  border-bottom-color: transparent;
 
   ${({ isFocused, theme }) =>
     isFocused &&
     css`
-      border-bottom-width: 2px;
       border-bottom-color: ${theme.colors.main};
     `};
 `;
