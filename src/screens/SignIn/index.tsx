@@ -9,6 +9,7 @@ import { Input } from "../../components/Input";
 import { PasswordInput } from "../../components/PasswordInput";
 
 import { Footer, Container, Header, Subtitle, Title, Form } from "./styles";
+import { useNavigation } from "@react-navigation/native";
 
 const sigInSchema = Yup.object().shape({
   email: Yup.string()
@@ -22,6 +23,7 @@ export function SignIn() {
   const [password, setPassword] = useState("");
 
   const theme = useTheme();
+  const navigation = useNavigation<any>();
 
   async function handleSignIn() {
     try {
@@ -33,6 +35,9 @@ export function SignIn() {
         Alert.alert("Erro na Autenticação!", "Verifique as suas credenciais");
       }
     }
+  }
+  function handleNewAccount() {
+    navigation.navigate("SignUpFirstStep");
   }
 
   return (
@@ -82,9 +87,7 @@ export function SignIn() {
               title="Criar conta gratuita"
               color={theme.colors.background_secondary}
               light
-              onPress={() => {}}
-              enabled={false}
-              isLoading={false}
+              onPress={handleNewAccount}
             />
           </Footer>
         </Container>
